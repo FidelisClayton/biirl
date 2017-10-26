@@ -37,7 +37,7 @@
       <v-list-tile @click="goTo('/workouts')">
 
         <v-list-tile-action>
-          <v-icon>home</v-icon>
+          <v-icon>list</v-icon>
         </v-list-tile-action>
 
         <v-list-tile-content>
