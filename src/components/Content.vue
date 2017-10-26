@@ -2,7 +2,7 @@
   <main>
     <v-content>
       <v-container fluid>
-        <h4>App</h4>
+        <router-view></router-view>
       </v-container>
     </v-content>
   </main>

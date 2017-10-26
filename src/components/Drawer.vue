@@ -22,13 +22,28 @@
 
     <v-list class="pt-0" dense>
       <v-divider></v-divider>
-      <v-list-tile>
+      <v-list-tile @click="goTo('/')">
+
         <v-list-tile-action>
           <v-icon>home</v-icon>
         </v-list-tile-action>
+
         <v-list-tile-content>
-          <v-list-tile-title>Test</v-list-tile-title>
+          <v-list-tile-title>Home</v-list-tile-title>
         </v-list-tile-content>
+
+      </v-list-tile>
+
+      <v-list-tile @click="goTo('/workouts')">
+
+        <v-list-tile-action>
+          <v-icon>home</v-icon>
+        </v-list-tile-action>
+
+        <v-list-tile-content>
+          <v-list-tile-title>Workouts</v-list-tile-title>
+        </v-list-tile-content>
+
       </v-list-tile>
     </v-list>
   </v-navigation-drawer>
@@ -40,6 +55,12 @@
     data () {
       return {
         display: false
+      }
+    },
+    methods: {
+      goTo (route) {
+        this.$router.push(route)
+        this.display = false
       }
     }
   }
