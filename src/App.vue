@@ -1,23 +1,22 @@
 <template>
   <v-app>
-    <Drawer></Drawer>
     <Toolbar></Toolbar>
-    <Content></Content>
-    <v-footer app></v-footer>
+    <MainContent></MainContent>
+    <BottomNav></BottomNav>
   </v-app>
 </template>
 
 <script>
-import Content from './components/Content'
-import Drawer from './components/Drawer'
+import MainContent from './components/Content'
 import Toolbar from './components/Toolbar'
+import BottomNav from './components/BottomNav'
 
 export default {
   name: 'app',
   components: {
-    Content,
-    Drawer,
-    Toolbar
+    MainContent,
+    Toolbar,
+    BottomNav
   }
 }
 </script>

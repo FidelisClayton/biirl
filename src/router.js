@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 import Home from './components/Home'
 import Workouts from './components/Workouts'
+import WorkoutsHistory from './components/WorkoutsHistory'
+import Diet from './components/Diet'
 
 Vue.use(VueRouter)
 
@@ -14,6 +16,14 @@ const routes = [
   {
     path: '/workouts',
     component: Workouts
+  },
+  {
+    path: '/diet',
+    component: Diet
+  },
+  {
+    path: '/workouts-history',
+    component: WorkoutsHistory
   }
 ]
 
