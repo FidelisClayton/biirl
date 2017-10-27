@@ -28,18 +28,18 @@
           v-model="name"
         >
         </v-text-field>
-        <v-text-field
-          label="Image"
-          v-model="image"
-        >
-        </v-text-field>
+        <input type="file" value="upload" ref="fileUpload" />
       </v-form>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import { workoutsRef } from '../firebase'
+import {
+  workoutsRef,
+  workoutsFilesRef,
+  storage
+} from '../firebase'
 
 export default {
   name: 'NewWorkoutDialog',
@@ -52,16 +52,30 @@ export default {
   methods: {
     submit () {
       if (this.$refs.form.validate()) {
-        workoutsRef.push({
-          name: this.name,
-          image: this.image
-        }, error => {
-          if (error) {
-            console.log(error)
-          } else {
-            this.dialog = false
+        const file = this.$refs.fileUpload.files[0]
+        const storageRef = storage.ref(`workout_files/${file.name}`)
+
+        const uploadTask = storageRef.put(file)
+
+        uploadTask.on('state_changed',
+          null,
+          console.log,
+          () => {
+            workoutsFilesRef
+              .child(file.name)
+              .getDownloadURL()
+              .then(url => {
+                workoutsRef.push({
+                  name: this.name,
+                  image: url
+                }, error => {
+                  if (!error) {
+                    this.dialog = false
+                  }
+                })
+              })
           }
-        })
+        )
       }
     }
   }

@@ -9,8 +9,14 @@ let config = {
   messagingSenderId: '1071252870823'
 }
 
-let app = Firebase.initializeApp(config)
-let db = app.database()
+const firebase = Firebase.initializeApp(config)
+export const db = firebase.database()
+export const storage = firebase.storage()
 
 export const workoutsRef = db.ref('workouts')
-export const exercises = db.ref('exercises')
+export const exercisesRef = db.ref('exercises')
+export const workoutsFilesRef = storage.ref('workout_files')
+
+export const FILES_BASE = 'gs://biirl-fcd03.appspot.com'
+
+export default firebase
