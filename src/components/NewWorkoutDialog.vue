@@ -22,6 +22,17 @@
           <v-btn dark flat @click.native="submit">Save</v-btn>
         </v-toolbar-items>
       </v-toolbar>
+
+      <v-progress-linear
+        v-bind:indeterminate="progress.query"
+        v-bind:query="true"
+        v-model="progress.value"
+        v-bind:active="progress.show"
+        height="5"
+        color="success"
+        class="b-progress"
+      ></v-progress-linear>
+
       <v-form class="b-form" v-model="valid" ref="form" lazy-validation>
         <v-text-field
           label="Name"
@@ -47,18 +58,28 @@ export default {
     name: '',
     valid: true,
     image: '',
-    dialog: false
+    dialog: false,
+    progress: {
+      query: false,
+      value: 0,
+      show: false
+    }
   }),
   methods: {
     submit () {
       if (this.$refs.form.validate()) {
+        this.progress.show = true
+
         const file = this.$refs.fileUpload.files[0]
         const storageRef = storage.ref(`workout_files/${file.name}`)
 
         const uploadTask = storageRef.put(file)
 
         uploadTask.on('state_changed',
-          null,
+          snap => {
+            this.progress.value =
+              (snap.bytesTransferred / snap.totalBytes) * 100
+          },
           console.log,
           () => {
             workoutsFilesRef
@@ -71,6 +92,8 @@ export default {
                 }, error => {
                   if (!error) {
                     this.dialog = false
+                    this.progress.show = false
+                    this.progress.value = 0
                   }
                 })
               })
@@ -84,10 +107,14 @@ export default {
 
 <style scoped>
 .btn-add {
-  bottom: 70px
+  bottom: 70px;
 }
 
 .b-form {
   padding: 24px;
+}
+
+.b-progress {
+  margin: 0;
 }
 </style>
