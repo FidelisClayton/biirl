@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
+import VueFire from 'vuefire'
 
 import App from './App'
 import router from './router'
@@ -11,6 +12,7 @@ import('../node_modules/vuetify/dist/vuetify.min.css')
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(VueRouter)
+Vue.use(VueFire)
 
 /* eslint-disable no-new */
 new Vue({
