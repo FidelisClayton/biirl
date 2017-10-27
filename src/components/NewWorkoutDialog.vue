@@ -77,6 +77,12 @@ export default {
 
         uploadTask.on('state_changed',
           snap => {
+            if (snap.bytesTransferred === 0 && this.progress.query === false) {
+              this.progress.query = true
+            } else {
+              this.progress.query = false
+            }
+
             this.progress.value =
               (snap.bytesTransferred / snap.totalBytes) * 100
           },
